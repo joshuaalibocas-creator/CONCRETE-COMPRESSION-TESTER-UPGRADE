@@ -1,0 +1,46 @@
+Here is the structured troubleshooting logic for the JABIASR Compression Machine Interface System. You can copy and paste this markdown block directly below your README.md file on GitHub to provide a visual step-by-step diagnostic guide for field technicians.
+
+🔍 System Troubleshooting Flowchart
+
+Follow this diagnostic path if you experience system link failures, freezing graphs, or data dropouts during a test run.
+                  [ START: System Issue Detected ]
+                                  |
+                                  v
+                    Is the COM Port List Empty?
+                   /                           \
+               (Yes)                           (No)
+
+                 |                               |
+                 v                               v
+     [ Check Physical Cable ]          Is the Graph Frozen at 0?
+     - Unplug/Replug USB Link         /                         \
+     - Confirm Board Power LED is ON (Yes)                      (No)
+
+                 |                     |                          |
+                 v                     v                          v
+     Does Port Appear on Refresh?   Confirm Baud Rate Setting  Are files failing
+     /                          \   - Must be set to 115200    to save automatically?
+ (Yes)                          (No)   in Serial initialization /                    \
+
+   |                              |            |             (Yes)                   (No)
+   |                              v            v               |                       |
+   |                   [ Replace USB Cable ]   |               v                       v
+   |                   - Check Windows Device  |      [ Check Permissions ]   [ Hardware Glitch ]
+   |                     Manager for CH340 /   |      - Run app from local    - Check load cell
+   |                     FTDI Driver status    |        Documents folder        wiring connections
+   |                              |            |      - Do not run from       - Cycle power on
+   |                              v            |        Program Files           the Arduino board
+   |                     [ Re-run build.py ]   |               |                       |
+   \                              /            /               v                       v
+    \                            /            /       [ Restart Interface ]   [ Contact Support ]
+     v                          v            v                 |                       |
+     [ Connect COM Port & Retest System Loop ] <---------------/-----------------------/
+                                |
+                                v
+                     [ SUCCESS: Test Active ]
+
+Flowchart Legend & Diagnostic Breakdown
+
+• Physical Connection Faults (COM List Empty): PySerial cannot see the hardware hardware profile. 90% of these cases are caused by a loose USB cable or an unpowered controller board. Always check that the red power indicator on the board is illuminated.
+• Telemetry Baud Mismatch (Frozen Graph): If the connection succeeds but the chart displays flat lines at zero, data packages are arriving garbled. The Arduino code and Python driver must match at exactly 115200 Baud.
+• Windows Directory Security (Save Failures): Windows protects its root drives (C:\Program Files\). If the executable is copied here, it will be blocked from creating the test results subfolder. Always execute the application from a user workspace like C:\Users\Admin\Documents\COMPRESSION.
