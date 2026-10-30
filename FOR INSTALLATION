@@ -1,0 +1,38 @@
+To run the compressionapp.exe standalone file on a completely new or different PC from scratch, you do not need to install Python, Thonny, Matplotlib, or PySerial. Everything required to run the dashboard interface code is self-contained inside the executable file.
+However, you must install the hardware communication drivers so the new PC can recognize the USB serial link from the Arduino board.
+
+Required Software & Driver Checklist
+
+• USB-to-Serial Chip Driver (Crucial for COM Port recognition)
+	• Most Arduino clones utilize the CH340 or FTDI communication chips. Windows 10 and 11 usually fetch these via Windows Update, but if the COM port dropdown remains blank, download and run the official driver installer:
+		• CH340/CH341 Driver Installer (Standard for low-cost Arduino boards)
+		• FTDI VCP Drivers (Virtual COM Port drivers, if using premium boards)
+• Microsoft Visual C++ Redistributable (System Dependency)
+	• Standalone apps compiled with PyInstaller rely on Windows core runtime files. Ensure the Visual C++ Redistributable Packages for Visual Studio (x64) is installed. Most modern Windows PCs already have this, but downloading the latest version prevents runtime engine crashes.
+
+💻 Clean PC Deployment Steps (Step-by-Step)
+
+
+1. Set Up the Workspace Directory
+
+1. Open File Explorer on the new PC.
+2. Go to Documents and create a folder exactly named COMPRESSION (Path: C:\Users\<Username>\Documents\COMPRESSION).
+3. Drag and drop your compressionapp.exe file directly into this folder.
+	• Note: Do not run it straight from a USB Flash Drive or from the C:\Program Files directory, or Windows security settings will block the application from automatically generating files.
+
+2. Connect and Verify the Testing Hardware
+
+1. Connect your machine's controller board to the new laptop using the USB cable.
+2. Turn on the concrete testing machine console frame power switch.
+3. Right-click the Windows Start Button and select Device Manager.
+4. Scroll down and expand the Ports (COM & LPT) section.
+5. Confirm that a device appears listed (e.g., USB-SERIAL CH340 (COM3)).
+	• If you see a yellow warning triangle, run the CH340 or FTDI driver setup files listed above.
+
+3. Launch the Interface
+
+1. Double-click compressionapp.exe inside your COMPRESSION folder to launch the interface.
+2. Select the matching active COM Port from the dropdown menu at the top right.
+3. Click Connect to initialize the live test acquisition system.
+4. The system will automatically create a subfolder named test results inside your directory as soon as the first logging sequence finishes.
+Let me know if you would like me to show you how to extract the driver log information from Windows Device Manager if the new laptop has trouble recognizing the USB connection port!
